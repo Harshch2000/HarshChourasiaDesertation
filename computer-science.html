@@ -72,7 +72,7 @@
         <div class="card topic-card shadow-sm text-center p-3">
             <i class="bi bi-diagram-3 fs-1 text-primary"></i>
             <h6 class="mt-2">Data Structures</h6>
-            <a href="#" class="btn btn-primary mt-2">View Videos</a>
+            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
         </div>
     </div>
 
@@ -80,7 +80,7 @@
         <div class="card topic-card shadow-sm text-center p-3">
             <i class="bi bi-gear fs-1 text-primary"></i>
             <h6 class="mt-2">Algorithms</h6>
-            <a href="#" class="btn btn-primary mt-2">View Videos</a>
+            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
         </div>
     </div>
 
@@ -88,7 +88,7 @@
         <div class="card topic-card shadow-sm text-center p-3">
             <i class="bi bi-database fs-1 text-primary"></i>
             <h6 class="mt-2">Database Management</h6>
-            <a href="#" class="btn btn-primary mt-2">View Videos</a>
+            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
         </div>
     </div>
 
@@ -96,7 +96,7 @@
         <div class="card topic-card shadow-sm text-center p-3">
             <i class="bi bi-globe fs-1 text-primary"></i>
             <h6 class="mt-2">Web Development</h6>
-            <a href="#" class="btn btn-primary mt-2">View Videos</a>
+            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
         </div>
     </div>
 
@@ -104,7 +104,7 @@
         <div class="card topic-card shadow-sm text-center p-3">
             <i class="bi bi-code-slash fs-1 text-primary"></i>
             <h6 class="mt-2">Programming Languages</h6>
-            <a href="#" class="btn btn-primary mt-2">View Videos</a>
+            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
         </div>
     </div>
 
@@ -112,7 +112,7 @@
         <div class="card topic-card shadow-sm text-center p-3">
             <i class="bi bi-shield-lock fs-1 text-primary"></i>
             <h6 class="mt-2">Cyber Security</h6>
-            <a href="#" class="btn btn-primary mt-2">View Videos</a>
+            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
         </div>
     </div>
 
@@ -120,7 +120,7 @@
         <div class="card topic-card shadow-sm text-center p-3">
             <i class="bi bi-cloud fs-1 text-primary"></i>
             <h6 class="mt-2">Cloud Computing</h6>
-            <a href="#" class="btn btn-primary mt-2">View Videos</a>
+            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
         </div>
     </div>
 
@@ -128,7 +128,7 @@
         <div class="card topic-card shadow-sm text-center p-3">
             <i class="bi bi-robot fs-1 text-primary"></i>
             <h6 class="mt-2">Artificial Intelligence</h6>
-            <a href="#" class="btn btn-primary mt-2">View Videos</a>
+            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
         </div>
     </div>
 
@@ -136,13 +136,51 @@
 
 </section><!-- Future Video Section Placeholder --><section class="container mt-5">
     <div class="card shadow-sm p-4">
-        <h4>Videos will appear here</h4>
-        <p class="text-muted">
-            This section will display videos fetched from the YouTube API based on the selected topic. This demonstrates dynamic content loading in a static GitHub Pages website.
-        </p>
+        <h4>Learning Videos</h4>
+        <p class="text-muted">Videos will be fetched dynamically from YouTube based on the selected topic.</p>
+        <div id="videoContainer" class="row g-4 mt-2"></div>
     </div>
 </section><!-- Footer --><footer>
     <p>© 2026 StudyTube | Founder: <strong>Harsh Chourasia</strong></p>
     <p>Computer Science Learning Section</p>
-</footer><!-- Bootstrap JS --><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script></body>
+</footer><!-- Bootstrap JS --><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script>
+
+// Replace with your own YouTube API key
+const API_KEY = "YOUR_YOUTUBE_API_KEY";
+
+async function loadVideos(topic) {
+    const container = document.getElementById("videoContainer");
+    container.innerHTML = "<p>Loading videos...</p>";
+
+    try {
+        const response = await fetch(
+            `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&q=${topic} tutorial&type=video&key=${API_KEY}`
+        );
+
+        const data = await response.json();
+        container.innerHTML = "";
+
+        data.items.forEach(video => {
+            const videoId = video.id.videoId;
+            const title = video.snippet.title;
+
+            container.innerHTML += `
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                        <div class="card-body">
+                            <h6>${title}</h6>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+    } catch (error) {
+        container.innerHTML = "<p class='text-danger'>Failed to load videos.</p>";
+        console.error(error);
+    }
+}
+
+</script></body>
 </html>
