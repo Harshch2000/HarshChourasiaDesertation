@@ -14,28 +14,28 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    .navbar-brand {
-        font-weight: bold;
-        font-size: 1.4rem;
-    }
-
-    .hero {
-        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+    .top-header {
+        background-color: #212529;
         color: white;
-        padding: 70px 20px;
+        padding: 20px;
         text-align: center;
-        border-radius: 0 0 25px 25px;
+        font-size: 28px;
+        font-weight: bold;
     }
 
-    .topic-card {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        cursor: pointer;
+    .sidebar {
+        background: white;
         border-radius: 15px;
+        padding: 15px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    .topic-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    .video-section {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        min-height: 400px;
     }
 
     footer {
@@ -47,8 +47,7 @@
     }
 </style>
 
-</head>
-<body><!-- Navbar --><nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+</head><body><!-- Navbar --><nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
     <div class="container">
         <a class="navbar-brand" href="index.html">
             <i class="bi bi-play-circle-fill me-2"></i>
@@ -60,95 +59,72 @@
     </div>
 </div>
 
-</nav><!-- Hero Section --><section class="hero">
-    <div class="container">
-        <h1><i class="bi bi-cpu"></i> Computer Science</h1>
-        <p>Select a topic to start learning computer science concepts</p>
-    </div>
-</section><!-- Topics Section --><section class="container mt-5">
-    <h2 class="text-center mb-4">Computer Science Topics</h2><div class="row g-4">
+</nav><!-- Black Header Section --><div class="top-header">
+    <i class="bi bi-cpu"></i> Computer Science
+</div><!-- Main Layout --><div class="container-fluid mt-4">
+    <div class="row"><!-- Video Display Section (Left) -->
+    <div class="col-lg-9 mb-4">
+        <div class="video-section">
+            <h4>Learning Videos</h4>
+            <p class="text-muted">Select a topic from the right to load videos.</p>
 
-    <div class="col-md-3">
-        <div class="card topic-card shadow-sm text-center p-3">
-            <i class="bi bi-diagram-3 fs-1 text-primary"></i>
-            <h6 class="mt-2">Data Structures</h6>
-            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
+            <div id="videoContainer" class="row g-4 mt-2">
+                <!-- Videos will load here -->
+            </div>
         </div>
     </div>
 
-    <div class="col-md-3">
-        <div class="card topic-card shadow-sm text-center p-3">
-            <i class="bi bi-gear fs-1 text-primary"></i>
-            <h6 class="mt-2">Algorithms</h6>
-            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
-        </div>
-    </div>
+    <!-- Topic Filter Sidebar (Right) -->
+    <div class="col-lg-3">
+        <div class="sidebar">
+            <h5 class="text-center mb-3">Filter Topics</h5>
 
-    <div class="col-md-3">
-        <div class="card topic-card shadow-sm text-center p-3">
-            <i class="bi bi-database fs-1 text-primary"></i>
-            <h6 class="mt-2">Database Management</h6>
-            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
-        </div>
-    </div>
+            <div class="list-group">
 
-    <div class="col-md-3">
-        <div class="card topic-card shadow-sm text-center p-3">
-            <i class="bi bi-globe fs-1 text-primary"></i>
-            <h6 class="mt-2">Web Development</h6>
-            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
-        </div>
-    </div>
+                <button class="list-group-item list-group-item-action" onclick="loadVideos('Data Structures')">
+                    <i class="bi bi-diagram-3"></i> Data Structures
+                </button>
 
-    <div class="col-md-3">
-        <div class="card topic-card shadow-sm text-center p-3">
-            <i class="bi bi-code-slash fs-1 text-primary"></i>
-            <h6 class="mt-2">Programming Languages</h6>
-            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
-        </div>
-    </div>
+                <button class="list-group-item list-group-item-action" onclick="loadVideos('Algorithms')">
+                    <i class="bi bi-gear"></i> Algorithms
+                </button>
 
-    <div class="col-md-3">
-        <div class="card topic-card shadow-sm text-center p-3">
-            <i class="bi bi-shield-lock fs-1 text-primary"></i>
-            <h6 class="mt-2">Cyber Security</h6>
-            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
-        </div>
-    </div>
+                <button class="list-group-item list-group-item-action" onclick="loadVideos('Database Management System')">
+                    <i class="bi bi-database"></i> Database Management
+                </button>
 
-    <div class="col-md-3">
-        <div class="card topic-card shadow-sm text-center p-3">
-            <i class="bi bi-cloud fs-1 text-primary"></i>
-            <h6 class="mt-2">Cloud Computing</h6>
-            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
-        </div>
-    </div>
+                <button class="list-group-item list-group-item-action" onclick="loadVideos('Web Development')">
+                    <i class="bi bi-globe"></i> Web Development
+                </button>
 
-    <div class="col-md-3">
-        <div class="card topic-card shadow-sm text-center p-3">
-            <i class="bi bi-robot fs-1 text-primary"></i>
-            <h6 class="mt-2">Artificial Intelligence</h6>
-            <button onclick="loadVideos(this.previousElementSibling.innerText)" class="btn btn-primary mt-2">View Videos</button>
+                <button class="list-group-item list-group-item-action" onclick="loadVideos('Programming Languages')">
+                    <i class="bi bi-code-slash"></i> Programming Languages
+                </button>
+
+                <button class="list-group-item list-group-item-action" onclick="loadVideos('Cyber Security')">
+                    <i class="bi bi-shield-lock"></i> Cyber Security
+                </button>
+
+                <button class="list-group-item list-group-item-action" onclick="loadVideos('Cloud Computing')">
+                    <i class="bi bi-cloud"></i> Cloud Computing
+                </button>
+
+                <button class="list-group-item list-group-item-action" onclick="loadVideos('Artificial Intelligence')">
+                    <i class="bi bi-robot"></i> Artificial Intelligence
+                </button>
+
+            </div>
         </div>
     </div>
 
 </div>
 
-</section><!-- Future Video Section Placeholder --><section class="container mt-5">
-    <div class="card shadow-sm p-4">
-        <h4>Learning Videos</h4>
-        <p class="text-muted">Videos will be fetched dynamically from YouTube based on the selected topic.</p>
-        <div id="videoContainer" class="row g-4 mt-2"></div>
-    </div>
-</section><!-- Footer --><footer>
+</div><!-- Footer --><footer>
     <p>© 2026 StudyTube | Founder: <strong>Harsh Chourasia</strong></p>
     <p>Computer Science Learning Section</p>
 </footer><!-- Bootstrap JS --><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script>
 
-// Replace with your own YouTube API key
-// IMPORTANT: Replace with your real YouTube API key
-// SECURITY NOTE: For safety, keep your API key private and paste it here locally before running the site.
-// Example: const API_KEY = "YOUR_API_KEY";
+// Your YouTube API Key
 const API_KEY = "AIzaSyCVABZyEblnmMa-eaKFaQ-QrvtRAqc9YBs";
 
 async function loadVideos(topic) {
@@ -162,6 +138,11 @@ async function loadVideos(topic) {
 
         const data = await response.json();
         container.innerHTML = "";
+
+        if (!data.items) {
+            container.innerHTML = "<p class='text-danger'>No videos found.</p>";
+            return;
+        }
 
         data.items.forEach(video => {
             const videoId = video.id.videoId;
@@ -182,15 +163,10 @@ async function loadVideos(topic) {
     } catch (error) {
         container.innerHTML = `
             <div class="alert alert-danger">
-                <strong>Error loading videos.</strong><br>
-                Possible reasons:<br>
-                1. API key is missing or incorrect<br>
-                2. YouTube Data API v3 is not enabled<br>
-                3. Internet connection issue<br>
-                4. API quota exceeded
+                Failed to load videos. Check API key and internet connection.
             </div>
         `;
-        console.error("YouTube API Error:", error);
+        console.error(error);
     }
 }
 
